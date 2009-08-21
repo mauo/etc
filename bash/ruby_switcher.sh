@@ -1,10 +1,10 @@
 export ORIGINAL_PATH=$PATH
 
-function use_leopard_ruby {
- export MY_RUBY_HOME=/System/Library/Frameworks/Ruby.framework/Versions/Current/usr
- export GEM_HOME=~/.gem/ruby/1.8
- update_path
-}
+#function use_leopard_ruby {
+# export MY_RUBY_HOME=/System/Library/Frameworks/Ruby.framework/Versions/Current/usr
+# export GEM_HOME=~/.gem/ruby/1.8
+# update_path
+#}
 
 function use_jruby {
  export MY_RUBY_HOME=~/.ruby_versions/jruby-1.3.1
@@ -49,11 +49,11 @@ function install_jruby_120 {
   popd
 }
 
-function use_ree_186 {
- export MY_RUBY_HOME=~/.ruby_versions/ruby-enterprise-1.8.6-20090610
- export GEM_HOME=~/.gem/ruby-enterprise/1.8
- update_path
-}
+#function use_ree_186 {
+# export MY_RUBY_HOME=~/.ruby_versions/ruby-enterprise-1.8.6-20090610
+# export GEM_HOME=~/.gem/ruby-enterprise/1.8
+# update_path
+#}
 
 function install_ree_186 {
   echo "Clearing RUBYOPT environment variable. Was set to '$RUBYOPT'."
@@ -83,17 +83,17 @@ function install_ruby_191 {
 }
 
 
-function use_ruby_186 {
- export MY_RUBY_HOME=~/.ruby_versions/ruby-1.8.6-p369
- export GEM_HOME=~/.gem/ruby/1.8
- update_path
-}
+#function use_ruby_186 {
+# export MY_RUBY_HOME=~/.ruby_versions/ruby-1.8.6-p369
+# export GEM_HOME=~/.gem/ruby/1.8
+# update_path
+#}
 
-function install_ruby_186 {
-  install_ruby_from_source "1.8" "6" "369" &&
-  use_ruby_186 && install_rake && popd
-}
-
+#function install_ruby_186 {
+#  install_ruby_from_source "1.8" "6" "369" &&
+#  use_ruby_186 && install_rake && popd
+#}
+#
 function use_ruby_187 {
  export MY_RUBY_HOME=~/.ruby_versions/ruby-1.8.7-p174
  export GEM_HOME=~/.gem/ruby/1.8
@@ -144,4 +144,4 @@ function display_ruby_version {
  export RPS1=$RUBY_VERSION
 }
 
-use_leopard_ruby
+use_ruby_187
