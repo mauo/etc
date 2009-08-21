@@ -34,7 +34,7 @@ function git_branch_and_user {
   fi
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
-    echo " (${branch})${ORANGE}($(git_user_initials))${remote}${state}"
+    echo "${GREEN}(${branch}${remote}${state}${GREEN})${COLOR_NONE}"
   fi
 }
 
@@ -49,13 +49,35 @@ function git_user_initials {
 
 function prompt_func() {
     previous_return_value=$?;
-    prompt="${TITLEBAR}${COLOR_NONE}[${COLOR_NONE}\W${GREEN}$(git_branch_and_user)${COLOR_NONE}]${COLOR_NONE} "
 
-    if test $previous_return_value -eq 0
-    then
-        PS1="${prompt}"
+    git_dir() {
+      base_dir=$(git rev-parse --show-cdup 2>/dev/null) || return 1
+      if [ -n "$base_dir" ]; then
+        base_dir=`cd $base_dir; pwd`
+      else
+        base_dir=$PWD
+      fi
+      base_dir="$(basename "${base_dir}")"
+      sub_dir=$(git rev-parse --show-prefix)
+      if [ -n "${sub_dir%/}" ]; then
+        sub_dir="/${sub_dir%/}"
+      else
+        sub_dir=""
+      fi
+      return 0
+    }
+
+    if git_dir; then
+      prompt="${COLOR_NONE}\u:$(git_branch_and_user) ${base_dir}${sub_dir} \$ "
+
+      if test $previous_return_value -eq 0
+      then
+          PS1="${prompt}"
+      else
+          PS1="${prompt}${RED}${COLOR_NONE}"
+      fi
     else
-        PS1="${prompt}${RED}${COLOR_NONE}"
+      PS1="\u:\w \$${COLOR_NONE} "
     fi
 }
 
