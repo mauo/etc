@@ -1,3 +1,5 @@
+alias gems='cd $(gem env gemdir)/gems'
+
 export GEMDIR=`gem env gemdir`
 
 gemdoc() {
