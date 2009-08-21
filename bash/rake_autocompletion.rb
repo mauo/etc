@@ -13,13 +13,14 @@ exit 0 unless File.file?(File.join(Dir.pwd, 'Rakefile'))
 exit 0 unless /^rake\b/ =~ ENV["COMP_LINE"]
 
 def rake_silent_tasks
+  tasks = []
   if File.exists?(dotcache = File.join(File.expand_path('~'), ".raketabs-#{Dir.pwd.hash}"))
-    File.read(dotcache)
+    tasks = File.read(dotcache)
   else
     tasks = `rake --silent --tasks`
     File.open(dotcache, 'w') { |f| f.puts tasks }
-    tasks
   end
+  tasks || []
 end
 
 after_match = $'
