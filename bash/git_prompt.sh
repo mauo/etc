@@ -68,7 +68,7 @@ function prompt_func() {
     }
 
     if git_dir; then
-      prompt="${COLOR_NONE}\u:$(git_branch_and_user) ${base_dir}${sub_dir} \$ "
+      prompt="${COLOR_NONE}\u:$(git_branch_and_user) ${GREEN}${base_dir}${COLOR_NONE}${sub_dir} \$ "
 
       if test $previous_return_value -eq 0
       then
