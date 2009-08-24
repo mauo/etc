@@ -9,6 +9,7 @@ export ORIGINAL_PATH=$PATH
 function use_jruby {
  export MY_RUBY_HOME=~/.ruby_versions/jruby-1.3.1
  export GEM_HOME=~/.gem/jruby/1.8
+ export RUBY_VER=jruby
  alias ruby_ng="jruby --ng"
  alias ruby_ng_server="jruby --ng-server"
  update_path
@@ -32,6 +33,7 @@ function install_jruby {
 function use_jruby_120 {
  export MY_RUBY_HOME=~/.ruby_versions/jruby-1.2.0
  export GEM_HOME=~/.gem/jruby/1.8
+ export RUBY_VER=jruby1.2
  update_path
 }
 
@@ -74,6 +76,7 @@ function install_ree_186 {
 function use_ruby_191 {
  export MY_RUBY_HOME=~/.ruby_versions/ruby-1.9.1-p129
  export GEM_HOME=~/.gem/ruby/1.9.1
+ export RUBY_VER=1.9.1
  update_path
 }
 
@@ -97,6 +100,7 @@ function install_ruby_191 {
 function use_ruby_187 {
  export MY_RUBY_HOME=~/.ruby_versions/ruby-1.8.7-p174
  export GEM_HOME=~/.gem/ruby/1.8
+ export RUBY_VER=1.8.7
  update_path
 }
 
