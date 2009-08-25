@@ -4,6 +4,9 @@ alias scprod='script/console production'
 alias ss='script/server'
 alias sg='script/generate'
 alias sdb='script/dbconsole'
+alias s="ruby script/server"
+alias c="ruby script/console"
+alias a="autospec"
 
 # testing shortcuts
 alias rt='rake --trace'
@@ -21,8 +24,7 @@ alias rdtp='rake db:test:prepare'
 alias rdfl='rake db:fixtures:load'
 alias rdr='rake db:rollback'
 alias rroutes='rake routes'
-alias mroutes='rroutes | mate'
-alias rmate='mate *.rb *.yml Rakefile README *.markdown app bin config doc examples db lib public script spec test stories features'
+
 # capistrano
 alias csd='cap staging deploy'
 
