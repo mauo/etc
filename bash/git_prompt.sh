@@ -47,18 +47,27 @@ function git_user_initials {
   git config --get user.initials
 }
 
+function git_base_dir {
+  base_dir=$(git rev-parse --show-cdup 2>/dev/null) || return 1
+  if [ -n "$base_dir" ]; then
+    base_dir=`cd $base_dir; pwd`
+  else
+    base_dir=$PWD
+  fi
+  echo "$(basename "${base_dir}")"
+}
+
+function git_remote_add {
+  git remote add $1 "git://github.com/$1/$(git_base_dir).git" &&
+  git fetch $1
+}
+
 function prompt_func() {
     previous_return_value=$?;
 
     git_dir() {
-      base_dir=$(git rev-parse --show-cdup 2>/dev/null) || return 1
-      if [ -n "$base_dir" ]; then
-        base_dir=`cd $base_dir; pwd`
-      else
-        base_dir=$PWD
-      fi
-      base_dir="$(basename "${base_dir}")"
-      sub_dir=$(git rev-parse --show-prefix)
+      base_dir="$(git_base_dir)"
+      sub_dir=$(git rev-parse --show-prefix 2>/dev/null) || return 1
       if [ -n "${sub_dir%/}" ]; then
         sub_dir="/${sub_dir%/}"
       else

@@ -9,3 +9,5 @@ alias gdc='git diff --cached'
 
 # git rm files that have already been deleted.
 alias git_rmd='git ls-files -d | ruby -ne "puts \$_.gsub(/ /, \"\\\\ \")" | xargs git rm'
+
+alias gra='git_remote_add'
