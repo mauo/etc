@@ -25,6 +25,7 @@ alias autof='AUTOTEST=functional autotest'
 alias autou392='autotest _3.9.2_'
 alias autof392='AUTOTEST=functional autotest _3.9.2_'
 
+export AUTOFEATURE=true
 
 # shorten mongrel cluster commands
 # example: cluster_start myapp
