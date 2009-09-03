@@ -86,7 +86,7 @@ function prompt_func() {
           PS1="${prompt}${RED}${COLOR_NONE}"
       fi
     else
-      PS1="\u:\w \$${COLOR_NONE} "
+      PS1="\u:${RUBY_VER}:\w \$${COLOR_NONE} "
     fi
 }
 

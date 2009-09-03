@@ -5,6 +5,7 @@ alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gr='git remote -v'
 alias gb='git branch -a'
+alias gd='git diff'
 alias gdc='git diff --cached'
 
 # git rm files that have already been deleted.
