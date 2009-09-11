@@ -7,11 +7,16 @@ export ORIGINAL_PATH=$PATH
 # update_path
 #}
 
+
 function use_jruby {
- export MY_RUBY_HOME=~/.ruby_versions/jruby-1.3.1
- export GEM_HOME=~/.gem/jruby/1.8
- export GEM_PATH=~/.gem/jruby/1.8
+ export JRUBY_HOME=~/.ruby_versions/jruby-1.3.1
+ export JRUBY_GEM_PATH=~/.gem/jruby/1.8
+ export JRUBY_GEM_HOME=~/.gem/jruby/1.8
+ export MY_RUBY_HOME=$JRUBY_HOME
+ export GEM_HOME=$JRUBY_GEM_HOME
+ export GEM_PATH=$JRUBY_GEM_PATH
  export RUBY_VER=jruby
+ export INCLUDE_JRUBY=false
  alias ruby_ng="jruby --ng"
  alias ruby_ng_server="jruby --ng-server"
  update_path
@@ -82,6 +87,15 @@ function use_ruby_191 {
  export GEM_HOME=~/.gem/ruby/1.9.1
  export GEM_PATH=~/.gem/ruby/1.9.1
  export RUBY_VER=1.9.1
+ export INCLUDE_JRUBY=false
+ update_path
+}
+
+function use_ruby_191_and_jruby {
+ use_jruby
+ use_ruby_191
+ export RUBY_VER=1.9.1+jruby
+ export INCLUDE_JRUBY=true
  update_path
 }
 
@@ -102,12 +116,21 @@ function install_ruby_191 {
 #  install_ruby_from_source "1.8" "6" "369" &&
 #  use_ruby_186 && install_rubygems_from_source "1.3.5" && install_rake && popd
 #}
-#
+
+function use_ruby_187_and_jruby {
+ use_jruby
+ use_ruby_187
+ export RUBY_VER=1.8.7+jruby
+ export INCLUDE_JRUBY=true
+ update_path
+}
+
 function use_ruby_187 {
  export MY_RUBY_HOME=~/.ruby_versions/ruby-1.8.7-p174
  export GEM_HOME=~/.gem/ruby/1.8
  export GEM_PATH=~/.gem/ruby/1.8
  export RUBY_VER=1.8.7
+ export INCLUDE_JRUBY=false
  update_path
 }
 
@@ -156,9 +179,15 @@ function install_jruby_openssl {
 }
 
 function update_path {
- export PATH=$GEM_HOME/bin:$MY_RUBY_HOME/bin:$ORIGINAL_PATH
- export RUBY_VERSION="$(ruby -v | colrm 11)"
- display_ruby_version
+  if [[ $INCLUDE_JRUBY == "true" ]]; then
+    echo "including jruby"
+    export GEM_PATH=$GEM_PATH:$JRUBY_GEM_PATH
+    export PATH=$GEM_HOME/bin:$MY_RUBY_HOME/bin:$JRUBY_GEM_HOME/bin:$JRUBY_HOME/bin:$ORIGINAL_PATH
+  else
+    export PATH=$GEM_HOME/bin:$MY_RUBY_HOME/bin:$ORIGINAL_PATH
+  fi
+  export RUBY_VERSION="$(ruby -v | colrm 11)"
+  display_ruby_version
 }
 
 function display_ruby_version {
