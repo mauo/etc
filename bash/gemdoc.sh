@@ -1,4 +1,4 @@
-alias gems='cd $(gem env gemdir)/gems'
+alias gems='pushd $(gem env gemdir)/gems'
 
 export GEMDIR=`gem env gemdir`
 
