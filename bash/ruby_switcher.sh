@@ -60,6 +60,34 @@ function install_jruby_120 {
   popd
 }
 
+function install_llvm_for_macruby {
+  # Based on the tutorial at http://redartisan.com/2009/9/1/macruby-intro
+  export UNIVERSAL=1
+  export UNIVERSAL_ARCH="i386 x86_64"
+  export ENABLE_OPTIMIZED=1
+  echo 'Building LLVM may take about 45 minutes'
+  mkdir -p ~/.ruby_versions/macruby/src && pushd ~/.ruby_versions/macruby/src &&
+  ((pushd llvm && git fetch origin && popd) || git clone git://repo.or.cz/llvm.git llvm) &&
+  cd llvm &&
+  git checkout ebe2d0079b086caa4d68ea9b63397751e4df6564 &&
+  ./configure --prefix=$HOME/.ruby_versions/macruby &&
+  make &&
+  sudo env UNIVERSAL=1 UNIVERSAL_ARCH="i386 x86_64" ENABLE_OPTIMIZED=1 make install &&
+  popd
+}
+
+function install_macruby {
+  # Based on the tutorial at http://redartisan.com/2009/9/1/macruby-intro
+  use_leopard_ruby &&
+  install_llvm_for_macruby &&
+  pushd ~/.ruby_versions/macruby/src &&
+  ((pushd macruby && git fetch origin && popd) || git clone git://git.macruby.org/macruby/MacRuby.git macruby) &&
+  cd macruby &&
+  env PATH=~/.ruby_versions/macruby:$ORIGINAL_PATH rake &&
+  sudo rake install &&
+  popd
+}
+
 #function use_ree_186 {
 # export MY_RUBY_HOME=~/.ruby_versions/ruby-enterprise-1.8.6-20090610
 # export GEM_HOME=~/.gem/ruby-enterprise/1.8
