@@ -4,7 +4,7 @@ function use_leopard_ruby {
  export MY_RUBY_HOME=/System/Library/Frameworks/Ruby.framework/Versions/Current/usr
  export GEM_HOME=~/.gem/ruby/1.8
  export GEM_PATH="~/.gem/ruby/1.8:/Library/Ruby/Gems/1.8:/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8"
- export RUBY_VER=osxruby
+ export RUBY_VER=leopard_ruby
  update_path
 }
 
@@ -72,7 +72,7 @@ function install_llvm_for_macruby {
   git checkout ebe2d0079b086caa4d68ea9b63397751e4df6564 &&
   ./configure --prefix=$HOME/.ruby_versions/macruby &&
   make &&
-  sudo env UNIVERSAL=1 UNIVERSAL_ARCH="i386 x86_64" ENABLE_OPTIMIZED=1 make install &&
+  env UNIVERSAL=1 UNIVERSAL_ARCH="i386 x86_64" ENABLE_OPTIMIZED=1 make install &&
   popd
 }
 
@@ -85,7 +85,32 @@ function install_macruby {
   cd macruby &&
   env PATH=~/.ruby_versions/macruby:$ORIGINAL_PATH rake &&
   sudo rake install &&
+  setup_macruby_env &&
+  use_macruby &&
   popd
+}
+
+function setup_macruby_env {
+  mkdir -p ~/.ruby_versions/macruby/bin &&
+  mkdir -p ~/.gem/macruby/1.9.1 &&
+  pushd ~/.ruby_versions/macruby/bin &&
+  echo "`which macruby` \$*" > ruby && chmod +x ruby &&
+  echo "`which macrake` \$*" > rake && chmod +x rake &&
+  echo "`which macirb` \$*" > irb && chmod +x irb &&
+  echo "`which macri` \$*" > ri && chmod +x ri &&
+  echo "`which macerb` \$*" > erb && chmod +x erb &&
+  echo "`which macrdoc` \$*" > rdoc && chmod +x rdoc &&
+  echo "`which mactestrb` \$*" > testrb && chmod +x testrb &&
+  echo "`which macgem` \$*" > gem && chmod +x gem &&
+  popd
+}
+
+function use_macruby {
+  export MY_RUBY_HOME=~/.ruby_versions/macruby
+  export GEM_HOME=~/.gem/macruby/1.9.1
+  export GEM_PATH=~/.gem/macruby/1.9.1
+  export RUBY_VER=macruby
+  update_path
 }
 
 #function use_ree_186 {
