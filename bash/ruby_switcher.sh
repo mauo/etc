@@ -3,7 +3,7 @@ export ORIGINAL_PATH=$PATH
 function use_leopard_ruby {
  export MY_RUBY_HOME=/System/Library/Frameworks/Ruby.framework/Versions/Current/usr
  export GEM_HOME=~/.gem/ruby/1.8
- export GEM_PATH="~/.gem/ruby/1.8:/Library/Ruby/Gems/1.8:/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8"
+ export GEM_PATH=~/.gem/ruby/1.8:/Library/Ruby/Gems/1.8:/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8
  export RUBY_VER=leopard_ruby
  update_path
 }
@@ -136,6 +136,23 @@ function install_ree_186 {
   popd
 }
 
+function use_ree_187 {
+  export MY_RUBY_HOME=~/.ruby_versions/ruby-enterprise-1.8.7-2009.10
+  export GEM_HOME=~/.gem/ruby/1.8.7 
+  export GEM_PATH=~/.gem/ruby/1.8.7 
+  update_path 
+}
+
+function install_ree_187 {
+  mkdir -p ~/tmp && mkdir -p ~/.ruby_versions && pushd ~/tmp 
+  curl --silent -L -O http://rubyforge.org/frs/download.php/66162/ruby-enterprise-1.8.7-2009.10.tar.gz && 
+  tar xzf ruby-enterprise-1.8.7-2009.10.tar.gz && cd ruby-enterprise-1.8.7-2009.10 && 
+  ./installer -a $HOME/.ruby_versions/ruby-enterprise-1.8.7-2009.10 --dont-install-useful-gems && 
+  cd ~/tmp && rm -rf ~/tmp/ruby-enterprise-1.8.7-2009.10 ruby-enterprise-1.8.7-2009.10.tar.gz && 
+  use_ree_187 && install_rake && 
+  popd
+}
+
 function use_ruby_191 {
  export MY_RUBY_HOME=~/.ruby_versions/ruby-1.9.1-p243
  export GEM_HOME=~/.gem/ruby/1.9.1
@@ -181,8 +198,8 @@ function use_ruby_187_and_jruby {
 
 function use_ruby_187 {
  export MY_RUBY_HOME=~/.ruby_versions/ruby-1.8.7-p174
- export GEM_HOME=~/.gem/ruby/1.8
- export GEM_PATH=~/.gem/ruby/1.8
+ export GEM_HOME=~/.gem/ruby/1.8.7
+ export GEM_PATH=~/.gem/ruby/1.8.7
  export RUBY_VER=1.8.7
  export INCLUDE_JRUBY=false
  update_path
