@@ -87,7 +87,7 @@ function prompt_func() {
     }
 
     if git_dir; then
-      prompt="${COLOR_NONE}\u:${RUBY_VER}:$(git_branch_and_user) ${GREEN}${base_dir}${COLOR_NONE}${sub_dir} \$ "
+      prompt="${COLOR_NONE}\u:${RUBY_VERSION}:$(git_branch_and_user) ${GREEN}${base_dir}${COLOR_NONE}${sub_dir} \$ "
 
       if test $previous_return_value -eq 0
       then
@@ -96,7 +96,7 @@ function prompt_func() {
           PS1="${prompt}${RED}${COLOR_NONE}"
       fi
     else
-      PS1="\u:${RUBY_VER}:\w \$${COLOR_NONE} "
+      PS1="\u:${RUBY_VERSION}:\w \$${COLOR_NONE} "
     fi
 }
 
