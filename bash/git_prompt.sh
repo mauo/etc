@@ -12,6 +12,16 @@ LIGHT_GREEN="\[\033[1;32m\]"
  LIGHT_GRAY="\[\033[0;37m\]"
  COLOR_NONE="\[\e[0m\]"
 
+function git_current_branch {
+  git_status="$(git status 2> /dev/null)"
+  branch_pattern="^# On branch ([^${IFS}]*)"
+  if [[ ${git_status} =~ ${branch_pattern} ]]; then
+    echo ${BASH_REMATCH[1]}
+  else
+    git rev-parse --verify head
+  fi
+}
+
 function git_branch_and_user {
   git rev-parse --git-dir &> /dev/null
   git_status="$(git status 2> /dev/null)"
